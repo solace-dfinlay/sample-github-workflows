@@ -57,14 +57,19 @@ jobs:
         unzip logs.zip -d logs || { echo "Failed to unzip logs"; exit 1; }
         
         # Combine all the logs into one file
-        cat logs/**/*.txt > combined_logs.txt
+        cat logs/**/*.txt > logs/combined_logs.txt
+
+    - name: Verify combined logs file
+      run: |
+        echo "Verifying combined logs file..."
+        ls -l logs/combined_logs.txt
 
     - name: Process logs and send to AI agent
       run: |
         echo "Sending logs to AI agent for analysis..."
         
-        # Call your AI agent and pass the combined logs file as input
-        cd "${GITHUB_WORKSPACE}/tools"
+        # Change directory to tools and run the AI agent script
+        cd tools
         python dylan_ai_agent.py < ../logs/combined_logs.txt > ai-analysis-result.txt
         
         # Output the AI analysis results
