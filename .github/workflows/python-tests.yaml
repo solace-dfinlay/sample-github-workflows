@@ -25,4 +25,13 @@ jobs:
         pip install unittest
 
     - name: Run tests
-      run: python -m unittest discover -s tests
+      run: |
+        set -e
+        python -m unittest discover -s tests > result.log 2>&1 || true
+        cat result.log
+
+    - name: Analyze logs with AI Agent
+      if: failure()
+      run: |
+        python tools/dylan_ai_agent.py < result.log > ai-analysis-result.txt
+        cat ai-analysis-result.txt
