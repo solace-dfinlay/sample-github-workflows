@@ -14,14 +14,27 @@ jobs:
     steps:
     - name: Checkout repo
       uses: actions/checkout@v2
+      with:
+        ref: ${{ github.event.workflow_run.head_branch }}
+
+    - name: Install GitHub CLI
+      run: |
+        sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-key C99B11DEB97541F0
+        sudo apt-add-repository https://cli.github.com/packages
+        sudo apt update
+        sudo apt install gh -y
+
+    - name: Install jq
+      run: |
+        sudo apt-get install jq -y
 
     - name: Fetch logs from previous workflow run
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
         echo "Fetching logs from the previous run..."
-        # Fetch the ID of the most recent workflow run
-        run_id=$(gh api "repos/${{ github.repository }}/actions/runs" \
+        # Fetch the ID of the most recent workflow run for the "python-tests" workflow
+        run_id=$(gh api "repos/${{ github.repository }}/actions/runs?workflow_id=python-tests&status=completed&per_page=1" \
           | jq -r '.workflow_runs[0].id')
         
         # Fetch the logs URL from GitHub API
