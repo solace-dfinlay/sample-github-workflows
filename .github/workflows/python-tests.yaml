@@ -42,5 +42,5 @@ jobs:
       if: failure()
       run: |
         cd "${GITHUB_WORKSPACE}/tools"
-        python dylan_ai_agent.py < result.log > ai-analysis-result.txt
-        cat ai-analysis-result.txt
+        python dylan_ai_agent.py < "${GITHUB_WORKSPACE}/result.log" > "${GITHUB_WORKSPACE}/ai-analysis-result.txt"
+        cat "${GITHUB_WORKSPACE}/ai-analysis-result.txt"
