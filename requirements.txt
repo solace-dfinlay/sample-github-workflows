@@ -1,0 +1,5 @@
+# For the openai example
+openai~=1.46.1
+
+# For the langchain example
+langchain_openai~=0.2.0

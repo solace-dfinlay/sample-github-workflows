@@ -1,0 +1,54 @@
+import os
+from openai import OpenAI
+
+os.environ["OPENAI_BASE_URL"] = "https://lite-llm.mymaas.net/v1"
+
+##############################################################
+# Choose your model here:                                    #
+#                                                            #
+# gemini-flash is relatively smart, fast and inexpensive     #
+# claude-3-5-sonnet is a more powerful model, but slower     #
+
+# model = "claude-3-5-sonnet"
+model = "gemini-flash"
+
+##############################################################
+# Choose the maximum size of the output here (in tokens)     #
+max_output_tokens = 1000
+
+#####################################################################
+# Temperature is a parameter that controls the randomness of the    #
+# output. Lower temperatures make the model more deterministic,     #
+# while higher temperatures make the model more creative.           #
+# Typically, temperature is a decimal number between 0 and 1.        #
+# 0 = no creativity - good for repeating facts or generating lists  #
+# 0.5 = moderate creativity - good for generating new sentences     #
+# 1 = very creative - good for generating new ideas or text         #
+temperature = 0.3
+
+# Initialize the AzureOpenAI client
+client = OpenAI(
+    api_key=os.getenv("LITELLM_API_KEY"),
+)
+
+# Send a completion call to generate an answer
+user_query = "Give 10 examples of taglines for an ice cream shop. "
+
+response = client.chat.completions.create(
+    messages=[
+        # system message is optional
+        {
+            "role": "system",
+            "content": "You are a helpful assistant.",
+        },
+        {
+            "role": "user",
+            "content": user_query,
+        },
+    ],
+    model=model,
+    temperature=temperature,
+    max_tokens=max_output_tokens,
+)
+
+print(f"{user_query}\n\n{response.choices[0].message.content}")
