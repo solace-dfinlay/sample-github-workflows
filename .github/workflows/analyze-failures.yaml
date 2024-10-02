@@ -62,15 +62,15 @@ jobs:
     - name: Verify combined logs file
       run: |
         echo "Verifying combined logs file..."
-        ls -l logs/combined_logs.txt
+        ls -l logs/
 
     - name: Process logs and send to AI agent
       run: |
         echo "Sending logs to AI agent for analysis..."
         
         # Change directory to tools and run the AI agent script
-        cd tools
-        python dylan_ai_agent.py < ../logs/combined_logs.txt > ai-analysis-result.txt
+        cd "${GITHUB_WORKSPACE}/tools"
+        python dylan_ai_agent.py < ${GITHUB_WORKSPACE}/logs/combined_logs.txt > ai-analysis-result.txt
         
         # Output the AI analysis results
         echo "AI analysis completed. Results:"
