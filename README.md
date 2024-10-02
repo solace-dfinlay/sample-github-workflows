@@ -16,8 +16,8 @@ pip install -r requirements.txt
 
 export LITELLM_API_KEY=<YOUR_LITELLM_API_KEY>
 
-python basic.py
-python basicLangchain.py
+python tools/basic.py
+python tools/basicLangchain.py
 ```
 
 ## Python3
