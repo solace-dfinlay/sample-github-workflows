@@ -1,0 +1,150 @@
+2024-10-02T14:49:16.4496026Z Current runner version: '2.319.1'
+2024-10-02T14:49:16.4518744Z ##[group]Operating System
+2024-10-02T14:49:16.4519359Z Ubuntu
+2024-10-02T14:49:16.4519733Z 22.04.5
+2024-10-02T14:49:16.4520127Z LTS
+2024-10-02T14:49:16.4520437Z ##[endgroup]
+2024-10-02T14:49:16.4520839Z ##[group]Runner Image
+2024-10-02T14:49:16.4521515Z Image: ubuntu-22.04
+2024-10-02T14:49:16.4521905Z Version: 20240922.1.0
+2024-10-02T14:49:16.4522920Z Included Software: https://github.com/actions/runner-images/blob/ubuntu22/20240922.1/images/ubuntu/Ubuntu2204-Readme.md
+2024-10-02T14:49:16.4524404Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu22%2F20240922.1
+2024-10-02T14:49:16.4525286Z ##[endgroup]
+2024-10-02T14:49:16.4525649Z ##[group]Runner Image Provisioner
+2024-10-02T14:49:16.4526182Z 2.0.384.1
+2024-10-02T14:49:16.4526507Z ##[endgroup]
+2024-10-02T14:49:16.4541809Z ##[group]GITHUB_TOKEN Permissions
+2024-10-02T14:49:16.4543480Z Contents: read
+2024-10-02T14:49:16.4544018Z Metadata: read
+2024-10-02T14:49:16.4544611Z Packages: read
+2024-10-02T14:49:16.4545136Z ##[endgroup]
+2024-10-02T14:49:16.4548209Z Secret source: Actions
+2024-10-02T14:49:16.4548767Z Prepare workflow directory
+2024-10-02T14:49:16.5193271Z Prepare all required actions
+2024-10-02T14:49:16.5367321Z Getting action download info
+2024-10-02T14:49:16.6976876Z Download action repository 'actions/checkout@v2' (SHA:ee0669bd1cc54295c223e0bb666b733df41de1c5)
+2024-10-02T14:49:16.8002609Z Download action repository 'actions/setup-python@v2' (SHA:e9aba2c848f5ebd159c070c61ea2c4e2b122355e)
+2024-10-02T14:49:16.9675027Z Complete job name: test
+2024-10-02T14:49:17.0678043Z ##[group]Run actions/checkout@v2
+2024-10-02T14:49:17.0678767Z with:
+2024-10-02T14:49:17.0679264Z   repository: solace-dfinlay/sample-github-workflows
+2024-10-02T14:49:17.0680193Z   token: ***
+2024-10-02T14:49:17.0680580Z   ssh-strict: true
+2024-10-02T14:49:17.0681014Z   persist-credentials: true
+2024-10-02T14:49:17.0681901Z   clean: true
+2024-10-02T14:49:17.0682276Z   fetch-depth: 1
+2024-10-02T14:49:17.0682689Z   lfs: false
+2024-10-02T14:49:17.0683140Z   submodules: false
+2024-10-02T14:49:17.0683532Z   set-safe-directory: true
+2024-10-02T14:49:17.0683990Z ##[endgroup]
+2024-10-02T14:49:17.2500434Z Syncing repository: solace-dfinlay/sample-github-workflows
+2024-10-02T14:49:17.2502930Z ##[group]Getting Git version info
+2024-10-02T14:49:17.2504007Z Working directory is '/home/runner/work/sample-github-workflows/sample-github-workflows'
+2024-10-02T14:49:17.2505409Z [command]/usr/bin/git version
+2024-10-02T14:49:17.2505915Z git version 2.46.1
+2024-10-02T14:49:17.2524109Z ##[endgroup]
+2024-10-02T14:49:17.2541095Z Temporarily overriding HOME='/home/runner/work/_temp/62ee740d-f6ed-49a8-853f-1c0c35fc85b2' before making global git config changes
+2024-10-02T14:49:17.2542869Z Adding repository directory to the temporary git global config as a safe directory
+2024-10-02T14:49:17.2544935Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/sample-github-workflows/sample-github-workflows
+2024-10-02T14:49:17.2580478Z Deleting the contents of '/home/runner/work/sample-github-workflows/sample-github-workflows'
+2024-10-02T14:49:17.2583850Z ##[group]Initializing the repository
+2024-10-02T14:49:17.2587450Z [command]/usr/bin/git init /home/runner/work/sample-github-workflows/sample-github-workflows
+2024-10-02T14:49:17.2649893Z hint: Using 'master' as the name for the initial branch. This default branch name
+2024-10-02T14:49:17.2651401Z hint: is subject to change. To configure the initial branch name to use in all
+2024-10-02T14:49:17.2652607Z hint: of your new repositories, which will suppress this warning, call:
+2024-10-02T14:49:17.2653457Z hint:
+2024-10-02T14:49:17.2654000Z hint: 	git config --global init.defaultBranch <name>
+2024-10-02T14:49:17.2654949Z hint:
+2024-10-02T14:49:17.2656132Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2024-10-02T14:49:17.2657197Z hint: 'development'. The just-created branch can be renamed via this command:
+2024-10-02T14:49:17.2657962Z hint:
+2024-10-02T14:49:17.2658759Z hint: 	git branch -m <name>
+2024-10-02T14:49:17.2659798Z Initialized empty Git repository in /home/runner/work/sample-github-workflows/sample-github-workflows/.git/
+2024-10-02T14:49:17.2664866Z [command]/usr/bin/git remote add origin https://github.com/solace-dfinlay/sample-github-workflows
+2024-10-02T14:49:17.2695228Z ##[endgroup]
+2024-10-02T14:49:17.2696148Z ##[group]Disabling automatic garbage collection
+2024-10-02T14:49:17.2698566Z [command]/usr/bin/git config --local gc.auto 0
+2024-10-02T14:49:17.2725379Z ##[endgroup]
+2024-10-02T14:49:17.2726324Z ##[group]Setting up auth
+2024-10-02T14:49:17.2731621Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2024-10-02T14:49:17.2759324Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2024-10-02T14:49:17.3055198Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2024-10-02T14:49:17.3082934Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2024-10-02T14:49:17.3313152Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2024-10-02T14:49:17.3348273Z ##[endgroup]
+2024-10-02T14:49:17.3349146Z ##[group]Fetching the repository
+2024-10-02T14:49:17.3357118Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --progress --no-recurse-submodules --depth=1 origin +0342116e6537e8ac7fd54891d524c25626ceb178:refs/remotes/origin/main
+2024-10-02T14:49:17.5189559Z remote: Enumerating objects: 17, done.        
+2024-10-02T14:49:17.5190888Z remote: Counting objects:   5% (1/17)        
+2024-10-02T14:49:17.5192019Z remote: Counting objects:  11% (2/17)        
+2024-10-02T14:49:17.5193196Z remote: Counting objects:  17% (3/17)        
+2024-10-02T14:49:17.5194403Z remote: Counting objects:  23% (4/17)        
+2024-10-02T14:49:17.5195137Z remote: Counting objects:  29% (5/17)        
+2024-10-02T14:49:17.5196039Z remote: Counting objects:  35% (6/17)        
+2024-10-02T14:49:17.5196755Z remote: Counting objects:  41% (7/17)        
+2024-10-02T14:49:17.5197470Z remote: Counting objects:  47% (8/17)        
+2024-10-02T14:49:17.5198185Z remote: Counting objects:  52% (9/17)        
+2024-10-02T14:49:17.5198811Z remote: Counting objects:  58% (10/17)        
+2024-10-02T14:49:17.5199428Z remote: Counting objects:  64% (11/17)        
+2024-10-02T14:49:17.5200133Z remote: Counting objects:  70% (12/17)        
+2024-10-02T14:49:17.5200763Z remote: Counting objects:  76% (13/17)        
+2024-10-02T14:49:17.5201706Z remote: Counting objects:  82% (14/17)        
+2024-10-02T14:49:17.5202673Z remote: Counting objects:  88% (15/17)        
+2024-10-02T14:49:17.5203329Z remote: Counting objects:  94% (16/17)        
+2024-10-02T14:49:17.5203974Z remote: Counting objects: 100% (17/17)        
+2024-10-02T14:49:17.5204668Z remote: Counting objects: 100% (17/17), done.        
+2024-10-02T14:49:17.5205370Z remote: Compressing objects:  10% (1/10)        
+2024-10-02T14:49:17.5206049Z remote: Compressing objects:  20% (2/10)        
+2024-10-02T14:49:17.5206724Z remote: Compressing objects:  30% (3/10)        
+2024-10-02T14:49:17.5207388Z remote: Compressing objects:  40% (4/10)        
+2024-10-02T14:49:17.5208051Z remote: Compressing objects:  50% (5/10)        
+2024-10-02T14:49:17.5208712Z remote: Compressing objects:  60% (6/10)        
+2024-10-02T14:49:17.5209485Z remote: Compressing objects:  70% (7/10)        
+2024-10-02T14:49:17.5210162Z remote: Compressing objects:  80% (8/10)        
+2024-10-02T14:49:17.5210822Z remote: Compressing objects:  90% (9/10)        
+2024-10-02T14:49:17.5211772Z remote: Compressing objects: 100% (10/10)        
+2024-10-02T14:49:17.5212491Z remote: Compressing objects: 100% (10/10), done.        
+2024-10-02T14:49:17.5213968Z remote: Total 17 (delta 1), reused 15 (delta 1), pack-reused 0 (from 0)        
+2024-10-02T14:49:17.5287199Z From https://github.com/solace-dfinlay/sample-github-workflows
+2024-10-02T14:49:17.5288960Z  * [new ref]         0342116e6537e8ac7fd54891d524c25626ceb178 -> origin/main
+2024-10-02T14:49:17.5320342Z ##[endgroup]
+2024-10-02T14:49:17.5322065Z ##[group]Determining the checkout info
+2024-10-02T14:49:17.5323553Z ##[endgroup]
+2024-10-02T14:49:17.5324979Z ##[group]Checking out the ref
+2024-10-02T14:49:17.5327496Z [command]/usr/bin/git checkout --progress --force -B main refs/remotes/origin/main
+2024-10-02T14:49:17.5373953Z Switched to a new branch 'main'
+2024-10-02T14:49:17.5377005Z branch 'main' set up to track 'origin/main'.
+2024-10-02T14:49:17.5382743Z ##[endgroup]
+2024-10-02T14:49:17.5416436Z [command]/usr/bin/git log -1 --format='%H'
+2024-10-02T14:49:17.5441905Z '0342116e6537e8ac7fd54891d524c25626ceb178'
+2024-10-02T14:49:17.5767354Z ##[group]Run actions/setup-python@v2
+2024-10-02T14:49:17.5768040Z with:
+2024-10-02T14:49:17.5768433Z   python-version: 3.x
+2024-10-02T14:49:17.5769060Z   token: ***
+2024-10-02T14:49:17.5769498Z ##[endgroup]
+2024-10-02T14:49:17.6890263Z Successfully setup CPython (3.12.6)
+2024-10-02T14:49:17.7020216Z ##[group]Run python -m pip install --upgrade pip
+2024-10-02T14:49:17.7021057Z [36;1mpython -m pip install --upgrade pip[0m
+2024-10-02T14:49:17.7022101Z [36;1mpip install unittest[0m
+2024-10-02T14:49:17.7051101Z shell: /usr/bin/bash -e {0}
+2024-10-02T14:49:17.7051880Z env:
+2024-10-02T14:49:17.7052407Z   pythonLocation: /opt/hostedtoolcache/Python/3.12.6/x64
+2024-10-02T14:49:17.7053295Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.12.6/x64/lib
+2024-10-02T14:49:17.7054057Z ##[endgroup]
+2024-10-02T14:49:18.3416724Z Requirement already satisfied: pip in /opt/hostedtoolcache/Python/3.12.6/x64/lib/python3.12/site-packages (24.2)
+2024-10-02T14:49:19.0573962Z ERROR: Could not find a version that satisfies the requirement unittest (from versions: none)
+2024-10-02T14:49:19.0903320Z ERROR: No matching distribution found for unittest
+2024-10-02T14:49:19.1312963Z ##[error]Process completed with exit code 1.
+2024-10-02T14:49:19.1411858Z Post job cleanup.
+2024-10-02T14:49:19.2302568Z [command]/usr/bin/git version
+2024-10-02T14:49:19.2338597Z git version 2.46.1
+2024-10-02T14:49:19.2382370Z Temporarily overriding HOME='/home/runner/work/_temp/d68bbc0f-9123-487e-a272-1761daeef280' before making global git config changes
+2024-10-02T14:49:19.2383595Z Adding repository directory to the temporary git global config as a safe directory
+2024-10-02T14:49:19.2385839Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/sample-github-workflows/sample-github-workflows
+2024-10-02T14:49:19.2423067Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2024-10-02T14:49:19.2458168Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2024-10-02T14:49:19.2699529Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2024-10-02T14:49:19.2720092Z http.https://github.com/.extraheader
+2024-10-02T14:49:19.2730667Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2024-10-02T14:49:19.2761388Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2024-10-02T14:49:19.3225260Z Cleaning up orphan processes

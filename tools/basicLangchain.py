@@ -2,6 +2,7 @@ import os
 from langchain_openai import ChatOpenAI
 from langchain_core.messages import HumanMessage
 from langchain_core.messages import SystemMessage
+from langchain.document_loaders import DirectoryLoader
 
 os.environ["OPENAI_BASE_URL"] = "https://lite-llm.mymaas.net/v1"
 
@@ -31,8 +32,26 @@ temperature = 0.3
 # Initialize the AzureOpenAI client
 model = ChatOpenAI(model=model, api_key=os.getenv("LITELLM_API_KEY"))
 
+DATA_PATH = "../src"
+
+def load_data():
+    loader = DirectoryLoader(DATA_PATH)
+    return loader.load()
+
+text_splitter = RecursiveCharacterTextSplitter(
+    chunk_size=1000,
+    chunk_overlap=500,
+    length_function=len,
+    add_start_index=True
+)
+
+documents = load_data()
+chunks = text_splitter.split_documents(documents)
+
+
+
 # Send a completion call to generate an answer
-user_query = "Give 10 examples of taglines for an ice cream shop. "
+user_query = "You are inside the repository: Python Hello World.\nThe GitHub Action workflow `python-tests.yaml` has encountered some failures.\nYour task is to identify the failures and analyze potential reasons for their occurrence.\nThe log attached is called `FAILURE_LOG.txt`.\nPlease output your findings in the following format:\n** Failure 1 **\n- Description of the failure:\n- Potential offending files:\n- Possible reasons for the failure:\n** Failure 2 **\n- Description of the failure:\n- Potential offending files:\n- Possible reasons for the failure:\n(Continue as needed for additional failures)\n"
 
 response = model.invoke(
     [
@@ -45,3 +64,4 @@ response = model.invoke(
 )
 
 print(f"{user_query}\n\n{response.content}")
+
