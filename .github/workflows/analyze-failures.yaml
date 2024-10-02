@@ -1,0 +1,47 @@
+name: Analyze Logs with AI Agent
+
+on:
+  workflow_run:
+    workflows: ["python-tests"]  # This refers to the first workflow
+    types:
+      - completed  # Triggered when the first workflow completes
+
+jobs:
+  analyze_logs:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repo
+      uses: actions/checkout@v2
+
+    - name: Fetch logs from previous workflow run
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        echo "Fetching logs from the previous run..."
+        # Fetch the ID of the most recent workflow run
+        run_id=$(gh api "repos/${{ github.repository }}/actions/runs" \
+          | jq -r '.workflow_runs[0].id')
+        
+        # Fetch the logs URL from GitHub API
+        logs_url="https://api.github.com/repos/${{ github.repository }}/actions/runs/${run_id}/logs"
+        
+        # Download the logs as a zip file
+        curl -H "Authorization: token $GITHUB_TOKEN" -H "Accept: application/vnd.github.v3+json" $logs_url --output logs.zip
+        
+        # Unzip the logs file
+        unzip logs.zip -d logs || { echo "Failed to unzip logs"; exit 1; }
+        
+        # Combine all the logs into one file
+        cat logs/**/*.txt > combined_logs.txt
+
+    - name: Process logs and send to AI agent
+      run: |
+        echo "Sending logs to AI agent for analysis..."
+        
+        # Call your AI agent and pass the combined logs file as input
+        python tools/dylan_ai_agent.py < combined_logs.txt > ai-analysis-result.txt
+        
+        # Output the AI analysis results
+        echo "AI analysis completed. Results:"
+        cat ai-analysis-result.txt
