@@ -64,7 +64,8 @@ jobs:
         echo "Sending logs to AI agent for analysis..."
         
         # Call your AI agent and pass the combined logs file as input
-        python tools/dylan_ai_agent.py < combined_logs.txt > ai-analysis-result.txt
+        cd "${GITHUB_WORKSPACE}/tools"
+        python dylan_ai_agent.py < ../logs/combined_logs.txt > ai-analysis-result.txt
         
         # Output the AI analysis results
         echo "AI analysis completed. Results:"
