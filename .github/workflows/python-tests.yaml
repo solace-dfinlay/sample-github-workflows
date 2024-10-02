@@ -1,6 +1,13 @@
 name: Python Tests
 
 on:
+  workflow_dispatch:
+    inputs:
+      sample_github_workflows_branch:
+        description: "Branch of sample_github_workflows"
+        required: false
+        default: "main"
+        type: string
   push:
     branches: [main]
   pull_request:
@@ -13,6 +20,8 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
+      with:
+        ref: ${{ github.event.inputs.sample_github_workflows_branch }}
 
     - name: Set up Python
       uses: actions/setup-python@v2
