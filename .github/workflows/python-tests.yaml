@@ -35,12 +35,18 @@ jobs:
     - name: Run tests
       run: |
         set -e
-        python -m unittest discover -s tests > result.log 2>&1
-        cat result.log
+        python -m unittest discover -s tests
 
     - name: Analyze logs with AI Agent
       if: failure()
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
-        cd "${GITHUB_WORKSPACE}/tools"
-        python dylan_ai_agent.py < "${GITHUB_WORKSPACE}/result.log" > "${GITHUB_WORKSPACE}/ai-analysis-result.txt"
-        cat "${GITHUB_WORKSPACE}/ai-analysis-result.txt"
+        echo "Fetching logs from GitHub Actions API..."
+        run_id=$(echo $GITHUB_RUN_ID)
+        logs_url="https://api.github.com/repos/${{ github.repository }}/actions/runs/${run_id}/logs"
+        curl -H "Authorization: token $GITHUB_TOKEN" -H "Accept: application/vnd.github.v3+json" $logs_url --output logs.zip
+        unzip logs.zip -d logs
+        cat logs/*.txt > combined_logs.txt
+        python tools/dylan_ai_agent.py < combined_logs.txt > ai-analysis-result.txt
+        cat ai-analysis-result.txt
