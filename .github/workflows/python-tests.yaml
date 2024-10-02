@@ -43,16 +43,8 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
         echo "Fetching logs from GitHub Actions API..."
-        run_id=$(echo $GITHUB_RUN_ID)
-        logs_url="https://api.github.com/repos/${{ github.repository }}/actions/runs/${run_id}/logs"
-        echo "Logs URL: $logs_url"
-        http_status=$(curl -s -o logs.zip -w "%{http_code}" -H "Authorization: token $GITHUB_TOKEN" -H "Accept: application/vnd.github.v3+json" $logs_url)
-        if [ "$http_status" -ne 200 ]; then
-          echo "Failed to fetch logs. HTTP status: $http_status"
-          cat logs.zip
-          exit 1
-        fi
-        unzip logs.zip -d logs || { echo "Failed to unzip logs"; exit 1; }
-        cat logs/*.txt > combined_logs.txt
-        python tools/dylan_ai_agent.py < combined_logs.txt > ai-analysis-result.txt
+        logs_url="https://api.github.com/repos/${{ github.repository }}/actions/runs/${{ github.run_id }}/logs"
+        curl -sL -H "Authorization: token $GITHUB_TOKEN" -H "Accept: application/vnd.github.v3+json" $logs_url --output logs.zip
+        unzip -q logs.zip -d logs || { echo "Failed to unzip logs"; exit 1; }
+        python tools/dylan_ai_agent.py logs/ > ai-analysis-result.txt
         cat ai-analysis-result.txt
