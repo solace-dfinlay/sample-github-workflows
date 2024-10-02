@@ -44,8 +44,8 @@ jobs:
         logs_url="https://api.github.com/repos/${{ github.repository }}/actions/runs/${run_id}/logs"
         echo "Logs URL: $logs_url"
         
-        # Download the logs as a zip file
-        http_status=$(curl -s -o logs.zip -w "%{http_code}" -H "Authorization: token $GITHUB_TOKEN" -H "Accept: application/vnd.github.v3+json" $logs_url)
+        # Download the logs as a zip file, following redirects
+        http_status=$(curl -L -s -o logs.zip -w "%{http_code}" -H "Authorization: token $GITHUB_TOKEN" -H "Accept: application/vnd.github.v3+json" $logs_url)
         
         if [ "$http_status" -ne 200 ]; then
           echo "Failed to fetch logs. HTTP status: $http_status"
