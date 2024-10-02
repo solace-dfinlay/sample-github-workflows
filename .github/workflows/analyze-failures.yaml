@@ -72,7 +72,7 @@ jobs:
         echo "Sending logs to AI agent for analysis..."
         
         # Change directory to tools and run the AI agent script
-        cd "${GITHUB_WORKSPACE}/tools"
+        cd ${{ GITHUB_WORKSPACE }}/tools
         python dylan_ai_agent.py < ${GITHUB_WORKSPACE}/logs/combined_logs.txt > ai-analysis-result.txt
         
         # Output the AI analysis results
