@@ -38,11 +38,20 @@ jobs:
         run_id=$(gh api "repos/${{ github.repository }}/actions/runs?workflow_id=python-tests&status=completed&per_page=1" \
           | jq -r '.workflow_runs[0].id')
         
+        echo "Run ID: $run_id"
+        
         # Fetch the logs URL from GitHub API
         logs_url="https://api.github.com/repos/${{ github.repository }}/actions/runs/${run_id}/logs"
+        echo "Logs URL: $logs_url"
         
         # Download the logs as a zip file
-        curl -H "Authorization: token $GITHUB_TOKEN" -H "Accept: application/vnd.github.v3+json" $logs_url --output logs.zip
+        http_status=$(curl -s -o logs.zip -w "%{http_code}" -H "Authorization: token $GITHUB_TOKEN" -H "Accept: application/vnd.github.v3+json" $logs_url)
+        
+        if [ "$http_status" -ne 200 ]; then
+          echo "Failed to fetch logs. HTTP status: $http_status"
+          cat logs.zip
+          exit 1
+        fi
         
         # Unzip the logs file
         unzip logs.zip -d logs || { echo "Failed to unzip logs"; exit 1; }
