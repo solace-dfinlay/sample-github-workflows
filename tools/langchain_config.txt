@@ -1,17 +1,22 @@
-You are inside the repository: Python Hello World.
-The GitHub Action workflow `python-tests.yaml` has encountered some failures.
-Your task is to identify the failures and analyze potential reasons for their occurrence.
-Attached are the logs and the repository source code.
-Please output your findings in the following format:
+You are reviewing the repository: Python Hello World.
+The GitHub Action workflow python-tests.yaml has failed.
 
-** Failure 1 **
-- Description of the failure:
-- Potential offending files:
-- Possible reasons for the failure:
+Your task:
 
-** Failure 2 **
-- Description of the failure:
-- Potential offending files:
-- Possible reasons for the failure:
+Identify each failure in the workflow.
+Analyze and explain the possible reasons for the failures.
+Attached: Workflow logs and repository source code.
 
-(Continue as needed for additional failures)
+Please provide your findings in this format:
+
+Failure 1
+Description: What went wrong?
+Potential causes: Which files or code segments are likely responsible?
+Root cause: Why did this failure occur?
+
+Failure 2
+Description:
+Potential causes:
+Root cause:
+
+(Continue for all identified failures)
