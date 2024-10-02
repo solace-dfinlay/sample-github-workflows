@@ -1,0 +1,151 @@
+LogEntry
+Current runner version: '2.319.1'
+##[group]Operating System
+Ubuntu
+22.04.5
+LTS
+##[endgroup]
+##[group]Runner Image
+Image: ubuntu-22.04
+Version: 20240922.1.0
+Included Software: https://github.com/actions/runner-images/blob/ubuntu22/20240922.1/images/ubuntu/Ubuntu2204-Readme.md
+Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu22%2F20240922.1
+##[endgroup]
+##[group]Runner Image Provisioner
+2.0.384.1
+##[endgroup]
+##[group]GITHUB_TOKEN Permissions
+Contents: read
+Metadata: read
+Packages: read
+##[endgroup]
+Secret source: Actions
+Prepare workflow directory
+Prepare all required actions
+Getting action download info
+Download action repository 'actions/checkout@v2' (SHA:ee0669bd1cc54295c223e0bb666b733df41de1c5)
+Download action repository 'actions/setup-python@v2' (SHA:e9aba2c848f5ebd159c070c61ea2c4e2b122355e)
+Complete job name: test
+##[group]Run actions/checkout@v2
+with:
+repository: solace-dfinlay/sample-github-workflows
+token: ***
+ssh-strict: true
+persist-credentials: true
+clean: true
+fetch-depth: 1
+lfs: false
+submodules: false
+set-safe-directory: true
+##[endgroup]
+Syncing repository: solace-dfinlay/sample-github-workflows
+##[group]Getting Git version info
+Working directory is '/home/runner/work/sample-github-workflows/sample-github-workflows'
+[command]/usr/bin/git version
+git version 2.46.1
+##[endgroup]
+Temporarily overriding HOME='/home/runner/work/_temp/62ee740d-f6ed-49a8-853f-1c0c35fc85b2' before making global git config changes
+Adding repository directory to the temporary git global config as a safe directory
+[command]/usr/bin/git config --global --add safe.directory /home/runner/work/sample-github-workflows/sample-github-workflows
+Deleting the contents of '/home/runner/work/sample-github-workflows/sample-github-workflows'
+##[group]Initializing the repository
+[command]/usr/bin/git init /home/runner/work/sample-github-workflows/sample-github-workflows
+hint: Using 'master' as the name for the initial branch. This default branch name
+hint: is subject to change. To configure the initial branch name to use in all
+"hint: of your new repositories, which will suppress this warning, call:"
+hint:
+hint: 	git config --global init.defaultBranch <name>
+hint:
+"hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and"
+hint: 'development'. The just-created branch can be renamed via this command:
+hint:
+hint: 	git branch -m <name>
+Initialized empty Git repository in /home/runner/work/sample-github-workflows/sample-github-workflows/.git/
+[command]/usr/bin/git remote add origin https://github.com/solace-dfinlay/sample-github-workflows
+##[endgroup]
+##[group]Disabling automatic garbage collection
+[command]/usr/bin/git config --local gc.auto 0
+##[endgroup]
+##[group]Setting up auth
+[command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+"[command]/usr/bin/git submodule foreach --recursive sh -c ""git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"""
+[command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+"[command]/usr/bin/git submodule foreach --recursive sh -c ""git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"""
+[command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+##[endgroup]
+##[group]Fetching the repository
+[command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --progress --no-recurse-submodules --depth=1 origin +0342116e6537e8ac7fd54891d524c25626ceb178:refs/remotes/origin/main
+"remote: Enumerating objects: 17, done."
+remote: Counting objects:   5% (1/17)
+remote: Counting objects:  11% (2/17)
+remote: Counting objects:  17% (3/17)
+remote: Counting objects:  23% (4/17)
+remote: Counting objects:  29% (5/17)
+remote: Counting objects:  35% (6/17)
+remote: Counting objects:  41% (7/17)
+remote: Counting objects:  47% (8/17)
+remote: Counting objects:  52% (9/17)
+remote: Counting objects:  58% (10/17)
+remote: Counting objects:  64% (11/17)
+remote: Counting objects:  70% (12/17)
+remote: Counting objects:  76% (13/17)
+remote: Counting objects:  82% (14/17)
+remote: Counting objects:  88% (15/17)
+remote: Counting objects:  94% (16/17)
+remote: Counting objects: 100% (17/17)
+"remote: Counting objects: 100% (17/17), done."
+remote: Compressing objects:  10% (1/10)
+remote: Compressing objects:  20% (2/10)
+remote: Compressing objects:  30% (3/10)
+remote: Compressing objects:  40% (4/10)
+remote: Compressing objects:  50% (5/10)
+remote: Compressing objects:  60% (6/10)
+remote: Compressing objects:  70% (7/10)
+remote: Compressing objects:  80% (8/10)
+remote: Compressing objects:  90% (9/10)
+remote: Compressing objects: 100% (10/10)
+"remote: Compressing objects: 100% (10/10), done."
+"remote: Total 17 (delta 1), reused 15 (delta 1), pack-reused 0 (from 0)"
+From https://github.com/solace-dfinlay/sample-github-workflows
+* [new ref]         0342116e6537e8ac7fd54891d524c25626ceb178 -> origin/main
+##[endgroup]
+##[group]Determining the checkout info
+##[endgroup]
+##[group]Checking out the ref
+[command]/usr/bin/git checkout --progress --force -B main refs/remotes/origin/main
+Switched to a new branch 'main'
+branch 'main' set up to track 'origin/main'.
+##[endgroup]
+[command]/usr/bin/git log -1 --format='%H'
+'0342116e6537e8ac7fd54891d524c25626ceb178'
+##[group]Run actions/setup-python@v2
+with:
+python-version: 3.x
+token: ***
+##[endgroup]
+Successfully setup CPython (3.12.6)
+##[group]Run python -m pip install --upgrade pip
+[36;1mpython -m pip install --upgrade pip[0m
+[36;1mpip install unittest[0m
+shell: /usr/bin/bash -e {0}
+env:
+pythonLocation: /opt/hostedtoolcache/Python/3.12.6/x64
+LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.12.6/x64/lib
+##[endgroup]
+Requirement already satisfied: pip in /opt/hostedtoolcache/Python/3.12.6/x64/lib/python3.12/site-packages (24.2)
+ERROR: Could not find a version that satisfies the requirement unittest (from versions: none)
+ERROR: No matching distribution found for unittest
+##[error]Process completed with exit code 1.
+Post job cleanup.
+[command]/usr/bin/git version
+git version 2.46.1
+Temporarily overriding HOME='/home/runner/work/_temp/d68bbc0f-9123-487e-a272-1761daeef280' before making global git config changes
+Adding repository directory to the temporary git global config as a safe directory
+[command]/usr/bin/git config --global --add safe.directory /home/runner/work/sample-github-workflows/sample-github-workflows
+[command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+"[command]/usr/bin/git submodule foreach --recursive sh -c ""git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"""
+[command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+http.https://github.com/.extraheader
+[command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+"[command]/usr/bin/git submodule foreach --recursive sh -c ""git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"""
+Cleaning up orphan processes
