@@ -1,8 +1,7 @@
 import os
 import sys
 from langchain_openai import ChatOpenAI
-from langchain_core.messages import HumanMessage
-from langchain_core.messages import SystemMessage
+from langchain_core.messages import HumanMessage, SystemMessage
 
 class AIAgent:
     def __init__(self, model_name, api_key, base_url, max_output_tokens=1000, temperature=0.3):
@@ -28,28 +27,31 @@ class AIAgent:
             temperature=self.temperature,
             max_tokens=self.max_output_tokens,
         )
-        
-        return response.content
-    
-    def read_logs(self):
-        return sys.stdin.read()
-    
-    def print_analysis(self, analysis):
-        print(analysis)
+        return response
 
-if __name__ == '__main__':
-    # Initialize the AI agent
-    ai_agent = AIAgent(
-        model_name="claude-3-5-sonnet",
-        api_key=os.getenv("LITELLM_API_KEY"),
-        base_url="https://lite-llm.mymaas.net/v1"
-    )
+def main(log_file_path):
+    # Configuration for the AI agent
+    model_name = "your-model-name"
+    api_key = "your-api-key"
+    base_url = "your-base-url"
     
-    # Read logs from standard input
-    logs = ai_agent.read_logs()
+    # Initialize the AI agent
+    agent = AIAgent(model_name, api_key, base_url)
+    
+    # Read the logs from the file
+    with open(log_file_path, 'r') as log_file:
+        logs = log_file.read()
     
     # Analyze the logs
-    analysis = ai_agent.analyze_logs(logs)
+    analysis_result = agent.analyze_logs(logs)
     
     # Print the analysis result
-    ai_agent.print_analysis(analysis)
+    print(analysis_result)
+
+if __name__ == "__main__":
+    if len(sys.argv) != 2:
+        print("Usage: python dylan_ai_agent.py <log_file_path>")
+        sys.exit(1)
+    
+    log_file_path = sys.argv[1]
+    main(log_file_path)
