@@ -59,10 +59,13 @@ jobs:
         # Combine all the logs into one file
         cat logs/**/*.txt > logs/combined_logs.txt
 
-    - name: Verify combined logs file
+    - name: Verify combined logs file and debugging
       run: |
         echo "Verifying combined logs file..."
         ls -l logs/
+        echo "Current directory: $(pwd)"
+        echo "Checking tools folder:" 
+        ls -l tools/
 
     - name: Process logs and send to AI agent
       run: |
