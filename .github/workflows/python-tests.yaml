@@ -41,5 +41,6 @@ jobs:
     - name: Analyze logs with AI Agent
       if: failure()
       run: |
-        python tools/dylan_ai_agent.py < result.log > ai-analysis-result.txt
+        cd "${GITHUB_WORKSPACE}/tools"
+        python dylan_ai_agent.py < result.log > ai-analysis-result.txt
         cat ai-analysis-result.txt
