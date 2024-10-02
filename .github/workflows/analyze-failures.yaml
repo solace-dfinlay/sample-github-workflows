@@ -59,10 +59,13 @@ jobs:
         # Combine all the logs into one file
         cat logs/**/*.txt > logs/combined_logs.txt
 
-    - name: Verify combined logs file
+    - name: Verify combined logs file and debugging
       run: |
         echo "Verifying combined logs file..."
-        ls -l logs/combined_logs.txt
+        ls -l logs/
+        echo "Current directory: $(pwd)"
+        echo "Checking tools folder:" 
+        ls -l tools/
 
     - name: Process logs and send to AI agent
       run: |
@@ -70,7 +73,7 @@ jobs:
         
         # Change directory to tools and run the AI agent script
         cd "${GITHUB_WORKSPACE}/tools"
-        python dylan_ai_agent.py "${GITHUB_WORKSPACE}/logs/combined_logs.txt" > ai-analysis-result.txt
+        python dylan_ai_agent.py < ${GITHUB_WORKSPACE}/logs/combined_logs.txt > ai-analysis-result.txt
         
         # Output the AI analysis results
         echo "AI analysis completed. Results:"
