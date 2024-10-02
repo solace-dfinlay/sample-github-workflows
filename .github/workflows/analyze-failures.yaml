@@ -5,6 +5,7 @@ on:
     workflows: ["python-tests"]  # This refers to the first workflow
     types:
       - completed  # Triggered when the first workflow completes
+  workflow_dispatch:  # Allows manual triggering of the workflow
 
 jobs:
   analyze_logs:
