@@ -86,6 +86,7 @@ jobs:
         cat logs/**/*.txt > logs/combined_logs.txt
 
         # Delete other logs
+        cd {GITHUB_WORKSPACE}/logs
         find . -name '*.txt' ! -name 'combined_logs.txt' -delete
 
     - name: Set up Python
