@@ -11,30 +11,11 @@ from create_db import generate_vector_store
 LITELLM_API_KEY = os.getenv('LITELLM_API_KEY')
 
 PROMPT_TEMPLATE = """
-Answer the question based only on the following context:
-
-{context}
-Your task:
-
-Identify each failure in the failed workflow.
-Analyze and explain the possible reasons for the failures.
-Attached: Workflow logs and repository source code.
-
-Please provide your findings in this format:
-
-Failure 1
-Description: What went wrong?
-Potential causes: Which files or code segments are likely responsible?
-Root cause: Why did this failure occur?
-
-Failure 2
-Description:
-Potential causes:
-Root cause:
-
-(Continue for all identified failures)
+Context: {context}
 
 ---
+
+Question: {question}
 
 """
 
@@ -53,7 +34,7 @@ class AIAgent:
         generate_vector_store()
 
     def analyze_logs(self):
-        query_text = "You are reviewing the repository: Sample Github Workflows. The GitHub Action workflow python-tests.yaml has failed."
+        query_text = "You are reviewing the repository: Sample Github Workflows. The GitHub Action workflow python-tests.yaml has failed. Answer the question based only on the following context:\n\n{context}\nYour task:\n\nIdentify each failure in the failed workflow.\nAnalyze and explain the possible reasons for the failures.\nAttached: Workflow logs and repository source code.\n\nPlease provide your findings in this format:\n\nFailure 1\nDescription: What went wrong?\nPotential causes: Which files or code segments are likely responsible?\nRoot cause: Why did this failure occur?\n\nFailure 2\nDescription:\nPotential causes:\nRoot cause:\n(Continue for all identified failures)\n\n---\n\n"
         
         # Prepare the DB.
         embedding_function = OpenAIEmbeddings(base_url="https://lite-llm.mymaas.net/v1", model="bedrock-cohere-embed-english-v3", api_key=os.getenv("LITELLM_API_KEY"))
