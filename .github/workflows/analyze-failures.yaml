@@ -87,12 +87,9 @@ jobs:
 
         mkdir -p "${GITHUB_WORKSPACE}/logs"
         
-        cd logs/
-        mv combined_logs.txt "${GITHUB_WORKSPACE}/logs/combined_logs.txt"
-
         # Delete other logs
         cd {GITHUB_WORKSPACE}/logs/
-        find . -name '*.txt' ! -name 'combined_logs.txt' -delete
+        find . -name '*' ! -name 'combined_logs.txt' -delete
 
     - name: Set up Python
       uses: actions/setup-python@v2
