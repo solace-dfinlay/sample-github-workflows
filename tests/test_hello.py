@@ -1,10 +1,12 @@
-# tests/test_hello.py
 import unittest
-from src.hello import greet
+from hello import hello, goodbye
 
 class TestHello(unittest.TestCase):
-    def test_greet(self):
-        self.assertEqual(greet("Worrld"), "Hello, World!")
+    def test_hello(self):
+        self.assertEqual(hello("Worrld"), "Hello, World!")
+    
+    def test_goodbye(self):
+        self.assertEqual(goodbye("Worldd"), "Goodbye, World!")
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()
