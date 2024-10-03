@@ -67,14 +67,19 @@ jobs:
         echo "Checking tools folder:" 
         ls -l tools/
 
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.12'  # Confirm required Python version
+
+    - name: Install Python dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+
     - name: Process logs and send to AI agent
       run: |
         echo "Sending logs to AI agent for analysis..."
-        
-        # Debugging: Print current directory and list files
-        echo "Current directory before running script: $(pwd)"
-        echo "Listing files in tools directory:"
-        ls -l "${GITHUB_WORKSPACE}/tools"
         
         # Change directory to tools and run the AI agent script
         cd "${GITHUB_WORKSPACE}/tools"
