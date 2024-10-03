@@ -71,6 +71,11 @@ jobs:
       run: |
         echo "Sending logs to AI agent for analysis..."
         
+        # Debugging: Print current directory and list files
+        echo "Current directory before running script: $(pwd)"
+        echo "Listing files in tools directory:"
+        ls -l "${GITHUB_WORKSPACE}/tools"
+        
         # Change directory to tools and run the AI agent script
         cd "${GITHUB_WORKSPACE}/tools"
         python dylan_ai_agent.py "${GITHUB_WORKSPACE}/logs/combined_logs.txt" > ai-analysis-result.txt
