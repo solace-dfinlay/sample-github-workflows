@@ -94,13 +94,13 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements.txt
-
+        
     - name: Process logs and send to AI agent
       env:
         LITELLM_API_KEY: ${{ secrets.LITELLM_API_KEY }}
       run: |
         echo "Sending logs to AI agent for analysis..."
         cd "${GITHUB_WORKSPACE}/tools"
-        python ai_agent.py "${GITHUB_WORKSPACE}/logs/combined_logs.txt" > ai-analysis-result.txt
+        python ai_agent.py > ai-analysis-result.txt
         echo "AI analysis completed. Results:"
         cat ai-analysis-result.txt
