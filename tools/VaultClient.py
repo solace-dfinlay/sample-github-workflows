@@ -9,6 +9,14 @@ class VaultClient:
         self.github_token = github_token
         self.vault_client = self.vault_login_with_github()
 
+    def vault_login_with_github(self):
+        """
+        Login to vault using github token
+        """
+        vault_client = hvac.Client(url=self.vault_addr)
+        vault_client.auth.github.login(token=self.github_token)
+        return vault_client
+
     def get_performance_secrets(self):
         """
         Get secrets from vault for performance environment
