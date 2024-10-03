@@ -85,9 +85,9 @@ jobs:
         # Combine all the logs into one file
         cat logs/**/*.txt > logs/combined_logs.txt
 
-        # Delete other logs
-        cd {GITHUB_WORKSPACE}/logs
-        find . -name '*.txt' ! -name 'combined_logs.txt' -delete
+        mkdir -p "${GITHUB_WORKSPACE}/logs"
+
+        mv combined_logs.txt "${GITHUB_WORKSPACE}/logs/combined_logs.txt"
 
     - name: Set up Python
       uses: actions/setup-python@v2
