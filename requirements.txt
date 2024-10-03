@@ -4,4 +4,9 @@ openai~=1.46.1
 # For the langchain example
 langchain_openai~=0.2.0
 
-langchain-community
+langchain_community
+langchain
+unstructured
+unstructured[csv]
+chromadb
+python-magic-bin
