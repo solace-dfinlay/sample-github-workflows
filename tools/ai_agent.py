@@ -14,12 +14,9 @@ PROMPT_TEMPLATE = """
 Answer the question based only on the following context:
 
 {context}
-You are reviewing the repository: Sample Github Workflows
-The GitHub Action workflow python-tests.yaml has failed.
-
 Your task:
 
-Identify each failure in the workflow.
+Identify each failure in the failed workflow.
 Analyze and explain the possible reasons for the failures.
 Attached: Workflow logs and repository source code.
 
@@ -56,7 +53,7 @@ class AIAgent:
         generate_vector_store()
 
     def analyze_logs(self):
-        query_text = "What is the failure in the GitHub Actions log?"
+        query_text = "You are reviewing the repository: Sample Github Workflows. The GitHub Action workflow python-tests.yaml has failed."
         
         # Prepare the DB.
         embedding_function = OpenAIEmbeddings(base_url="https://lite-llm.mymaas.net/v1", model="bedrock-cohere-embed-english-v3", api_key=os.getenv("LITELLM_API_KEY"))
