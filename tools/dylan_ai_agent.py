@@ -6,7 +6,7 @@ from langchain_core.messages import HumanMessage, SystemMessage
 import VaultClient
 
 class AIAgent:
-    def __init__(self, api_key):
+    def __init__(self):
         # Set environment variables
         os.environ["OPENAI_BASE_URL"] = "https://lite-llm.mymaas.net/v1"
         
