@@ -86,7 +86,8 @@ jobs:
         cat logs/**/*.txt > logs/combined_logs.txt
 
         mkdir -p "${GITHUB_WORKSPACE}/logs"
-
+        
+        cd logs/
         mv combined_logs.txt "${GITHUB_WORKSPACE}/logs/combined_logs.txt"
 
         # Delete other logs
