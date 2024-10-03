@@ -2,6 +2,7 @@ import os
 import sys
 from langchain_openai import ChatOpenAI
 from langchain_core.messages import HumanMessage, SystemMessage
+import re
 
 class AIAgent:
     def __init__(self, llm_api_key):
@@ -17,7 +18,12 @@ class AIAgent:
         self.model = ChatOpenAI(model=self.model_name, api_key=llm_api_key)
     
     def analyze_logs(self, logs):
-        user_query = f"Analyze the following logs and explain the error and possible solution:\n\n{logs}"
+        prompt_file_path = "prompt_config.txt"
+
+        with open(prompt_file_path, 'r') as file:
+            prompt = file.read()
+
+        user_query = f"{prompt}\n\n{logs}"
         
         response = self.model.invoke(
             [
@@ -41,8 +47,12 @@ def main(log_file_path):
     # Analyze the logs
     analysis_result = agent.analyze_logs(logs)
     
-    # Print the analysis result
-    print(analysis_result)
+    # Check if analysis_result has a 'content' attribute (for AIMessage type)
+    if hasattr(analysis_result, 'content'):
+        content = analysis_result.content
+        print(content)
+    else:
+        print("No content found.")
 
 if __name__ == "__main__":
     if len(sys.argv) != 2:
