@@ -1,21 +1,35 @@
 name: Analyze Logs with AI Agent
 
 on:
-  workflow_run:
-    workflows: ["python-tests"]  # This refers to the first workflow
-    types:
-      - completed  # Triggered when the first workflow completes
   workflow_dispatch:  # Allows manual triggering of the workflow
+    inputs:
+      sample_github_workflows_branch:
+        description: "Branch of sample_github_workflows"
+        required: false
+        default: "main"
+        type: string
+      analyze_mode:
+        description: 'Choose whether to analyze the most recent workflow run or a specific workflow run'
+        required: true
+        default: 'most_recent'
+        type: choice
+        options:
+          - most_recent
+          - specific
+      workflow_run_id:
+        description: 'The ID of the specific workflow run to analyze (required if analyze_mode is specific)'
+        required: false
+        type: string
 
 jobs:
   analyze_logs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout repo
+    - name: Checkout code
       uses: actions/checkout@v2
       with:
-        ref: ${{ github.event.workflow_run.head_branch }}
+        ref: ${{ github.event.inputs.sample_github_workflows_branch }}
 
     - name: Install GitHub CLI
       run: |
@@ -33,10 +47,21 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
+        analyze_mode="${{ github.event.inputs.analyze_mode }}"
+
         echo "Fetching logs from the previous run..."
-        # Fetch the ID of the most recent workflow run for the "python-tests" workflow
-        run_id=$(gh api "repos/${{ github.repository }}/actions/runs?workflow_id=python-tests&status=completed&per_page=1" \
-          | jq -r '.workflow_runs[0].id')
+        if [ "$analyze_mode" = "recent" ]; then
+          # Fetch the ID of the most recent workflow run for the "python-tests" workflow
+          run_id=$(gh api "repos/${{ github.repository }}/actions/runs?workflow_id=python-tests&status=completed&per_page=1" \
+            | jq -r '.workflow_runs[0].id')
+        else
+          # Use the specified workflow run ID
+          run_id="${{ github.event.inputs.workflow_run_id }}"
+          if [ -z "$run_id" ]; then
+            echo "Error: workflow_run_id is required when analyze_mode is 'specific'"
+            exit 1
+          fi
+        fi
         
         echo "Run ID: $run_id"
         
