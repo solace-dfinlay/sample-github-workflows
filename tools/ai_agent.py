@@ -55,7 +55,7 @@ def main(log_file_path):
 
 if __name__ == "__main__":
     if len(sys.argv) != 2:
-        print("Usage: python dylan_ai_agent.py <log_file_path>")
+        print("Usage: python ai_agent.py <log_file_path>")
         sys.exit(1)
     
     log_file_path = sys.argv[1]

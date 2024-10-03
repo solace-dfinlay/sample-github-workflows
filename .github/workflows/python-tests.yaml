@@ -55,5 +55,5 @@ jobs:
     #     fi
     #     unzip logs.zip -d logs || { echo "Failed to unzip logs"; exit 1; }
     #     cat logs/*.txt > combined_logs.txt
-    #     python tools/dylan_ai_agent.py < combined_logs.txt > ai-analysis-result.txt
+    #     python tools/ai_agent.py < combined_logs.txt > ai-analysis-result.txt
     #     cat ai-analysis-result.txt
