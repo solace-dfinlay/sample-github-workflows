@@ -79,7 +79,7 @@ jobs:
 
     - name: Process logs and send to AI agent
       env:
-        API_KEY: ${{ secrets.API_KEY }}
+        LITELLM_API_KEY: ${{ secrets.LITELLM_API_KEY }}
       run: |
         echo "Sending logs to AI agent for analysis..."
         cd "${GITHUB_WORKSPACE}/tools"

@@ -31,8 +31,8 @@ class AIAgent:
 
 def main(log_file_path):
     # Initialize the AI agent
-    api_key = os.getenv('API_KEY')  # Get the API key from environment variable
-    agent = AIAgent(api_key)
+    LITELLM_API_KEY = os.getenv('LITELLM_API_KEY')  # Get the API key from environment variable
+    agent = AIAgent(LITELLM_API_KEY)
     
     # Read the logs from the file
     with open(log_file_path, 'r') as log_file:
