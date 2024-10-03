@@ -37,8 +37,8 @@ def load_documents():
 
 def split_text(documents: list[Document]):
     text_splitter = RecursiveCharacterTextSplitter(
-        chunk_size=30,
-        chunk_overlap=10,
+        chunk_size=300,
+        chunk_overlap=100,
         length_function=len,
         add_start_index=True,
     )
@@ -59,7 +59,7 @@ def save_to_chroma(chunks: list[Document]):
 
     # Create a new DB from the documents.
     db = Chroma.from_documents(
-        chunks, OpenAIEmbeddings(base_url="https://lite-llm.mymaas.net/v1", model="gemini-flash", api_key=os.getenv("LITELLM_API_KEY")), persist_directory=CHROMA_PATH
+        chunks, OpenAIEmbeddings(base_url="https://lite-llm.mymaas.net/v1", model="bedrock-cohere-embed-english-v3", api_key=os.getenv("LITELLM_API_KEY")), persist_directory=CHROMA_PATH
     )
     db.persist()
     print(f"Saved {len(chunks)} chunks to {CHROMA_PATH}.")
