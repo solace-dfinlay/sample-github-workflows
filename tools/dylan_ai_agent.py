@@ -3,10 +3,8 @@ import sys
 from langchain_openai import ChatOpenAI
 from langchain_core.messages import HumanMessage, SystemMessage
 
-from VaultClient import VaultClient
-
 class AIAgent:
-    def __init__(self):
+    def __init__(self, llm_api_key):
         # Set environment variables
         os.environ["OPENAI_BASE_URL"] = "https://lite-llm.mymaas.net/v1"
         
@@ -14,16 +12,9 @@ class AIAgent:
         self.model_name = "claude-3-5-sonnet"
         self.max_output_tokens = 1000
         self.temperature = 0.3
-
-        # Get the API key
-        self.GITHUB_TOKEN = os.getenv('GITHUB_TOKEN')
-        self.VAULT_ADDR = "https://vault.maas-vault-prod.solace.cloud:8200"
-        self.vault_client = VaultClient(self.VAULT_ADDR, self.GITHUB_TOKEN)
-        self.performance_secrets = self.vault_client.get_performance_secrets()
-        self.AI_API_KEY = self.performance_secrets["AI_API_KEY"]
         
         # Initialize the LLM client
-        self.model = ChatOpenAI(model=self.model_name, api_key=self.AI_API_KEY)
+        self.model = ChatOpenAI(model=self.model_name, api_key=llm_api_key)
     
     def analyze_logs(self, logs):
         user_query = f"Analyze the following logs and explain the error and possible solution:\n\n{logs}"
@@ -40,7 +31,8 @@ class AIAgent:
 
 def main(log_file_path):
     # Initialize the AI agent
-    agent = AIAgent()
+    api_key = os.getenv('API_KEY')  # Get the API key from environment variable
+    agent = AIAgent(api_key)
     
     # Read the logs from the file
     with open(log_file_path, 'r') as log_file:
