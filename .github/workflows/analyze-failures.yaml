@@ -101,6 +101,7 @@ jobs:
       run: |
         echo "Sending logs to AI agent for analysis..."
         cd "${GITHUB_WORKSPACE}/tools"
-        python ai_agent.py > ai-analysis-result.txt
-        echo "AI analysis completed. Results:"
-        cat ai-analysis-result.txt
+        python ai_agent.py 
+        #> ai-analysis-result.txt
+        #echo "AI analysis completed. Results:"
+        #cat ai-analysis-result.txt
