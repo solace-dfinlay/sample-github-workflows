@@ -3,7 +3,7 @@ import sys
 from langchain_openai import ChatOpenAI
 from langchain_core.messages import HumanMessage, SystemMessage
 
-import VaultClient
+from VaultClient import VaultClient
 
 class AIAgent:
     def __init__(self):
