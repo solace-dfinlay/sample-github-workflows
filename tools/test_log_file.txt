@@ -1,0 +1,90 @@
+Run started: October 3, 2024 at 10:00 AM UTC
+
+name: CI Workflow
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+    - name: Set up Node.js 16.x
+      uses: actions/setup-node@v2
+      with:
+        node-version: '16.x'
+    - name: Install dependencies
+      run: npm install
+
+    - name: Lint code
+      run: npm run lint
+      env:
+        CI: true
+      output:
+        exit_code: 0
+      status: success
+      log: |
+        > project-name@1.0.0 lint /home/runner/work/project-name
+        > eslint .
+
+        No linting issues found.
+
+    - name: Run tests
+      run: npm test
+      env:
+        CI: true
+      output:
+        exit_code: 1
+      status: failure
+      log: |
+        > project-name@1.0.0 test /home/runner/work/project-name
+        > jest --ci --coverage
+
+        FAIL src/components/SomeComponent.test.js
+          ✕ renders the component correctly (50 ms)
+          
+          ● renders the component correctly
+
+            expect(received).toBeTruthy()
+
+            Received: null
+
+            10 |     const wrapper = shallow(<SomeComponent />);
+            11 |     const element = wrapper.find('.some-element');
+          > 12 |     expect(element).toBeTruthy();
+               |                     ^
+            13 |   });
+            14 |
+            
+            at Object.<anonymous> (src/components/SomeComponent.test.js:12:21)
+
+        Test Suites: 1 failed, 5 passed, 6 total
+        Tests:       1 failed, 30 passed, 31 total
+        Snapshots:   0 total
+        Time:        5.123s
+        Ran all test suites.
+
+    - name: Build project
+      if: ${{ success() }}
+      run: npm run build
+      output:
+        exit_code: 0
+      status: skipped
+      log: |
+        Skipping the build step due to previous failure.
+
+Conclusion:
+  Workflow failed at step "Run tests".
+  Please fix the test failure and try again.
+
+Run finished: October 3, 2024 at 10:05 AM UTC
