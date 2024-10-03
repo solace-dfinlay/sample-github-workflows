@@ -2,3 +2,4 @@
 src/test.txt
 test.txt
 tools/chroma
+tools/__pycache__

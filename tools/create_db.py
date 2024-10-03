@@ -1,3 +1,5 @@
+# This script is a modification from
+# https://github.com/pixegami/langchain-rag-tutorial
 # from langchain.document_loaders import DirectoryLoader
 from langchain_community.document_loaders import DirectoryLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
@@ -30,9 +32,15 @@ def generate_data_store():
 
 
 def load_documents():
-    loader = DirectoryLoader(DATA_PATH, glob="*.txt")
-    documents = loader.load()
-    return documents
+  loader = DirectoryLoader(DATA_PATH, glob="*.txt")
+  csv_documents = loader.load()
+  
+  ioader = DirectoryLoader(DATA_PATH, glob="*.txt")
+  loader = DirectoryLoader(DATA_PATH, glob="*.py")
+  py_documents = loader.load()
+  
+  documents = csv_documents + py_documents
+  return documents
 
 
 def split_text(documents: list[Document]):
@@ -43,12 +51,7 @@ def split_text(documents: list[Document]):
         add_start_index=True,
     )
     chunks = text_splitter.split_documents(documents)
-    print(f"Split {len(documents)} documents into {len(chunks)} chunks.")
-
-    print(chunks)
-    #print(document.page_content)
-    #print(document.metadata)
-
+    #print(f"Split {len(documents)} documents into {len(chunks)} chunks.")
     return chunks
 
 
@@ -62,7 +65,7 @@ def save_to_chroma(chunks: list[Document]):
         chunks, OpenAIEmbeddings(base_url="https://lite-llm.mymaas.net/v1", model="bedrock-cohere-embed-english-v3", api_key=os.getenv("LITELLM_API_KEY")), persist_directory=CHROMA_PATH
     )
     db.persist()
-    print(f"Saved {len(chunks)} chunks to {CHROMA_PATH}.")
+    #print(f"Saved {len(chunks)} chunks to {CHROMA_PATH}.")
 
 
 if __name__ == "__main__":
